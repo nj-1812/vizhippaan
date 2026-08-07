@@ -40,7 +40,6 @@ import {
   Sparkles,
   Target,
   Users,
-  Zap,
 } from 'lucide-react'
 
 import {
@@ -226,7 +225,7 @@ const factorColors = [
 const spark = [2, 4, 3, 6, 4, 7, 5, 8, 6, 9, 7, 10]
 
 /* ============================================================
-   MINI SPARKLINE
+   MINI SPARK
 ============================================================ */
 
 function MiniSpark({
@@ -289,8 +288,13 @@ function MetricCard({
         </div>
 
         <div>
-          <p className="metric-label">{label}</p>
-          <p className="metric-value">{value}</p>
+          <p className="metric-label">
+            {label}
+          </p>
+
+          <p className="metric-value">
+            {value}
+          </p>
 
           <p
             className="metric-note"
@@ -338,7 +342,7 @@ function Card({
 }
 
 /* ============================================================
-   FEATURE WORKSPACE
+   FEATURE PAGE
 ============================================================ */
 
 function FeaturePage({
@@ -451,6 +455,7 @@ function RiskDistribution({
           <strong>
             {Number(total).toLocaleString()}
           </strong>
+
           <span>Students</span>
         </div>
       </div>
@@ -488,7 +493,7 @@ function RiskDistribution({
 }
 
 /* ============================================================
-   TREND CHART
+   TREND
 ============================================================ */
 
 function TrendChart({
@@ -651,7 +656,7 @@ export default function Page() {
   }
 
   /* ==========================================================
-     LOAD BACKEND OVERVIEW
+     API DATA
   ========================================================== */
 
   useEffect(() => {
@@ -688,7 +693,7 @@ export default function Page() {
   }, [])
 
   /* ==========================================================
-     OVERVIEW DATA
+     DATA
   ========================================================== */
 
   const summary =
@@ -756,13 +761,11 @@ export default function Page() {
   }
 
   /* ==========================================================
-     OVERVIEW WORKSPACE
+     OVERVIEW
   ========================================================== */
 
   const renderOverview = () => (
     <>
-      {/* KPI ROW */}
-
       <div className="metric-grid">
         <MetricCard
           icon={Users}
@@ -840,10 +843,7 @@ export default function Page() {
         />
       </div>
 
-      {/* CLEAN OVERVIEW ROW */}
-
       <div className="grid-row row-one">
-
         <Card
           title="Risk Distribution"
           className="distribution-card"
@@ -869,7 +869,6 @@ export default function Page() {
           className="factors-card"
         >
           <div className="factor-list">
-
             {displayFactors.map(
               ([
                 name,
@@ -900,7 +899,6 @@ export default function Page() {
                 </div>
               )
             )}
-
           </div>
 
           <button
@@ -924,7 +922,7 @@ export default function Page() {
   )
 
   /* ==========================================================
-     HEATMAP WORKSPACE
+     HEATMAP
   ========================================================== */
 
   const renderHeatmap = () => (
@@ -1018,7 +1016,7 @@ export default function Page() {
   )
 
   /* ==========================================================
-     INTERVENTION SIMULATOR WORKSPACE
+     INTERVENTION SIMULATOR
   ========================================================== */
 
   const renderInterventionSimulator = () => (
@@ -1027,8 +1025,7 @@ export default function Page() {
       description="Compare support strategies and estimate how individual interventions could reduce student dropout risk."
       icon={CircleDollarSign}
     >
-      <div className="grid-row">
-
+      <div className="grid-row row-two">
         <Card
           title={
             <>
@@ -1041,7 +1038,6 @@ export default function Page() {
           className="intervention-card"
         >
           <div className="intervention-list">
-
             {[
               [
                 'Scholarship Program',
@@ -1087,7 +1083,6 @@ export default function Page() {
                 </div>
               )
             )}
-
           </div>
 
           <button
@@ -1109,6 +1104,7 @@ export default function Page() {
               <strong>
                 Attendance Improvement
               </strong>
+
               <span>
                 Model the effect of improved regular attendance.
               </span>
@@ -1118,6 +1114,7 @@ export default function Page() {
               <strong>
                 Financial Support
               </strong>
+
               <span>
                 Test scholarship and welfare assistance scenarios.
               </span>
@@ -1127,6 +1124,7 @@ export default function Page() {
               <strong>
                 Transport Support
               </strong>
+
               <span>
                 Estimate impact of reducing commute barriers.
               </span>
@@ -1136,13 +1134,13 @@ export default function Page() {
               <strong>
                 Counselling
               </strong>
+
               <span>
                 Simulate behavioural and mentoring interventions.
               </span>
             </div>
           </div>
         </Card>
-
       </div>
     </FeaturePage>
   )
@@ -1169,7 +1167,6 @@ export default function Page() {
         className="resource"
       >
         <div className="resource-grid">
-
           <div>
             <GraduationCap
               size={18}
@@ -1223,7 +1220,6 @@ export default function Page() {
               5,600
             </b>
           </div>
-
         </div>
 
         <button
@@ -1242,7 +1238,7 @@ export default function Page() {
   )
 
   /* ==========================================================
-     OPPORTUNITY DETECTOR
+     OPPORTUNITY
   ========================================================== */
 
   const renderOpportunityDetector = () => (
@@ -1256,7 +1252,6 @@ export default function Page() {
         className="opportunity"
       >
         <div className="opportunity-body">
-
           <div className="progress-ring">
             <svg viewBox="0 0 42 42">
               <circle
@@ -1288,7 +1283,6 @@ export default function Page() {
             </b>{' '}
             can significantly improve with targeted support.
           </p>
-
         </div>
 
         <button
@@ -1307,7 +1301,7 @@ export default function Page() {
   )
 
   /* ==========================================================
-     FAIRNESS AUDITOR
+     FAIRNESS
   ========================================================== */
 
   const renderFairnessAuditor = () => (
@@ -1316,8 +1310,7 @@ export default function Page() {
       description="Evaluate model outcomes across student groups and monitor potential algorithmic bias."
       icon={ShieldCheck}
     >
-      <div className="grid-row">
-
+      <div className="grid-row row-two">
         <Card title="Gender Parity">
           <div className="audit-stat">
             <span>
@@ -1351,13 +1344,12 @@ export default function Page() {
             </b>
           </div>
         </Card>
-
       </div>
     </FeaturePage>
   )
 
   /* ==========================================================
-     APP QUALITY / SYSTEM HEALTH
+     QUALITY GUARDIAN
   ========================================================== */
 
   const renderQualityGuardian = () => (
@@ -1371,7 +1363,6 @@ export default function Page() {
         className="health"
       >
         <div className="health-list">
-
           <div>
             <span>
               <CheckCircle2
@@ -1453,14 +1444,13 @@ export default function Page() {
                 : 'Waiting'}
             </b>
           </div>
-
         </div>
       </Card>
     </FeaturePage>
   )
 
   /* ==========================================================
-     ACTIVE CONTENT ROUTER
+     ACTIVE CONTENT
   ========================================================== */
 
   const renderActiveContent = () => {
@@ -1585,9 +1575,7 @@ export default function Page() {
   return (
     <main className="dashboard-shell">
 
-      {/* ======================================================
-          SIDEBAR
-      ====================================================== */}
+      {/* SIDEBAR */}
 
       <aside
         className={`sidebar ${
@@ -1596,11 +1584,7 @@ export default function Page() {
             : 'collapsed'
         }`}
       >
-
-        {/* BRAND */}
-
         <div className="brand">
-
           <a
             href="/"
             aria-label="VIZHIPPAAN dashboard home"
@@ -1623,14 +1607,9 @@ export default function Page() {
               size={17}
             />
           </button>
-
         </div>
 
-        {/* NAVIGATION */}
-
         <nav aria-label="Primary navigation">
-
-          {/* OVERVIEW */}
 
           <button
             type="button"
@@ -1642,6 +1621,7 @@ export default function Page() {
             onClick={() => {
               setActive('Overview')
               setOpenModule(null)
+
               notify(
                 'Overview selected'
               )
@@ -1655,8 +1635,6 @@ export default function Page() {
               Overview
             </span>
           </button>
-
-          {/* MODULES */}
 
           {navigationModules.map(
             (module) => {
@@ -1681,9 +1659,6 @@ export default function Page() {
                   }
                   className="nav-module"
                 >
-
-                  {/* MODULE HEADER */}
-
                   <button
                     type="button"
                     className={`nav-item module-button ${
@@ -1715,11 +1690,8 @@ export default function Page() {
                     />
                   </button>
 
-                  {/* CHILD FEATURES */}
-
                   {isOpen && (
                     <div className="nav-submenu">
-
                       {module.items.map(
                         (item) => {
                           const ItemIcon =
@@ -1756,21 +1728,15 @@ export default function Page() {
                           )
                         }
                       )}
-
                     </div>
                   )}
-
                 </div>
               )
             }
           )}
-
         </nav>
 
-        {/* ADMIN */}
-
         <div className="admin-card">
-
           <div className="admin-avatar">
             <Users size={20} />
           </div>
@@ -1788,23 +1754,15 @@ export default function Page() {
           <ChevronDown
             size={15}
           />
-
         </div>
-
       </aside>
 
-      {/* ======================================================
-          MAIN AREA
-      ====================================================== */}
+      {/* MAIN */}
 
       <div className="main-area">
 
-        {/* TOP BAR */}
-
         <header className="topbar">
-
           <div className="welcome">
-
             <button
               type="button"
               className="mobile-menu icon-button"
@@ -1837,11 +1795,9 @@ export default function Page() {
                   : 'VIZHIPPAAN Intelligence Workspace'}
               </p>
             </div>
-
           </div>
 
           <div className="top-actions">
-
             <button
               type="button"
               className="select-button"
@@ -1904,31 +1860,32 @@ export default function Page() {
 
               Export Report
             </button>
-
           </div>
-
         </header>
 
-        {/* ====================================================
-            DYNAMIC CONTENT
-        ==================================================== */}
+        {/* IMPORTANT FIX:
+            Overview gets fullscreen-fit CSS.
+            Feature pages get their own scrolling area.
+        */}
 
-        <div className="content">
+        <div
+          className={`content ${
+            active === 'Overview'
+              ? 'overview-content'
+              : 'feature-content'
+          }`}
+        >
           {renderActiveContent()}
         </div>
 
-        {/* FOOTER */}
-
         <footer>
-
           <span>
             <span className="heart">
               ♥
             </span>{' '}
 
             Every child has potential.
-            VIZHIPPAAN ensures no child
-            is left behind.
+            VIZHIPPAAN ensures no child is left behind.
           </span>
 
           <span>
@@ -1938,25 +1895,18 @@ export default function Page() {
 
             AI for Social Good
           </span>
-
         </footer>
-
       </div>
-
-      {/* TOAST */}
 
       {toast && (
         <div className="toast">
-
           <CheckCircle2
             size={16}
           />
 
           {toast}
-
         </div>
       )}
-
     </main>
   )
 }
