@@ -37,6 +37,7 @@ import {
   PanelLeftClose,
   ShieldCheck,
   ShoppingCart,
+  Sparkles,
   Target,
   Users,
   Zap,
@@ -65,7 +66,7 @@ const logo =
   'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20Aug%208%2C%202026%2C%2012_10_21%20AM-25y7spyU8PJWD9FH90HZXV9NaFsXvl.png'
 
 /* ============================================================
-   SIDEBAR MODULE CONFIGURATION
+   TYPES
 ============================================================ */
 
 type NavigationItem = {
@@ -78,6 +79,17 @@ type NavigationModule = {
   icon: ElementType
   items: NavigationItem[]
 }
+
+type FeaturePageProps = {
+  title: string
+  description: string
+  icon: ElementType
+  children?: ReactNode
+}
+
+/* ============================================================
+   SIDEBAR MODULES
+============================================================ */
 
 const navigationModules: NavigationModule[] = [
   {
@@ -181,118 +193,26 @@ const navigationModules: NavigationModule[] = [
 ============================================================ */
 
 const fallbackTrendData = [
-  {
-    month: 'Jan',
-    low: 58,
-    medium: 34,
-    high: 14,
-    critical: 3,
-  },
-  {
-    month: 'Feb',
-    low: 64,
-    medium: 31,
-    high: 16,
-    critical: 3,
-  },
-  {
-    month: 'Mar',
-    low: 56,
-    medium: 34,
-    high: 13,
-    critical: 3,
-  },
-  {
-    month: 'Apr',
-    low: 59,
-    medium: 32,
-    high: 12,
-    critical: 3,
-  },
-  {
-    month: 'May',
-    low: 61,
-    medium: 30,
-    high: 11,
-    critical: 3,
-  },
-  {
-    month: 'Jun',
-    low: 65,
-    medium: 32,
-    high: 9,
-    critical: 3,
-  },
-  {
-    month: 'Jul',
-    low: 60,
-    medium: 30,
-    high: 12,
-    critical: 3,
-  },
-  {
-    month: 'Aug',
-    low: 61,
-    medium: 31,
-    high: 12,
-    critical: 3,
-  },
-  {
-    month: 'Sep',
-    low: 60,
-    medium: 31,
-    high: 13,
-    critical: 3,
-  },
-  {
-    month: 'Oct',
-    low: 64,
-    medium: 29,
-    high: 11,
-    critical: 3,
-  },
-  {
-    month: 'Nov',
-    low: 60,
-    medium: 29,
-    high: 12,
-    critical: 3,
-  },
-  {
-    month: 'Dec',
-    low: 54,
-    medium: 30,
-    high: 12,
-    critical: 3,
-  },
+  { month: 'Jan', low: 58, medium: 34, high: 14, critical: 3 },
+  { month: 'Feb', low: 64, medium: 31, high: 16, critical: 3 },
+  { month: 'Mar', low: 56, medium: 34, high: 13, critical: 3 },
+  { month: 'Apr', low: 59, medium: 32, high: 12, critical: 3 },
+  { month: 'May', low: 61, medium: 30, high: 11, critical: 3 },
+  { month: 'Jun', low: 65, medium: 32, high: 9, critical: 3 },
+  { month: 'Jul', low: 60, medium: 30, high: 12, critical: 3 },
+  { month: 'Aug', low: 61, medium: 31, high: 12, critical: 3 },
+  { month: 'Sep', low: 60, medium: 31, high: 13, critical: 3 },
+  { month: 'Oct', low: 64, medium: 29, high: 11, critical: 3 },
+  { month: 'Nov', low: 60, medium: 29, high: 12, critical: 3 },
+  { month: 'Dec', low: 54, medium: 30, high: 12, critical: 3 },
 ]
 
 const fallbackFactors = [
-  [
-    'Low Attendance',
-    42,
-    'var(--risk-critical)',
-  ],
-  [
-    'Low Test Scores',
-    37,
-    'var(--risk-blue)',
-  ],
-  [
-    'Low Household Income',
-    31,
-    'var(--risk-teal)',
-  ],
-  [
-    'Large Distance to School',
-    22,
-    'var(--risk-purple)',
-  ],
-  [
-    'No Internet Access',
-    19,
-    'var(--risk-pink)',
-  ],
+  ['Low Attendance', 42, 'var(--risk-critical)'],
+  ['Low Test Scores', 37, 'var(--risk-blue)'],
+  ['Low Household Income', 31, 'var(--risk-teal)'],
+  ['Large Distance to School', 22, 'var(--risk-purple)'],
+  ['No Internet Access', 19, 'var(--risk-pink)'],
 ] as const
 
 const factorColors = [
@@ -303,20 +223,7 @@ const factorColors = [
   'var(--risk-pink)',
 ]
 
-const spark = [
-  2,
-  4,
-  3,
-  6,
-  4,
-  7,
-  5,
-  8,
-  6,
-  9,
-  7,
-  10,
-]
+const spark = [2, 4, 3, 6, 4, 7, 5, 8, 6, 9, 7, 10]
 
 /* ============================================================
    MINI SPARKLINE
@@ -327,18 +234,13 @@ function MiniSpark({
 }: {
   color: string
 }) {
-  const data = spark.map(
-    (value, index) => ({
-      index,
-      value,
-    })
-  )
+  const data = spark.map((value, index) => ({
+    index,
+    value,
+  }))
 
   return (
-    <ResponsiveContainer
-      width="100%"
-      height="100%"
-    >
+    <ResponsiveContainer width="100%" height="100%">
       <AreaChart data={data}>
         <Area
           type="monotone"
@@ -387,13 +289,8 @@ function MetricCard({
         </div>
 
         <div>
-          <p className="metric-label">
-            {label}
-          </p>
-
-          <p className="metric-value">
-            {value}
-          </p>
+          <p className="metric-label">{label}</p>
+          <p className="metric-value">{value}</p>
 
           <p
             className="metric-note"
@@ -414,7 +311,7 @@ function MetricCard({
 }
 
 /* ============================================================
-   GENERIC DASHBOARD CARD
+   GENERIC CARD
 ============================================================ */
 
 function Card({
@@ -429,16 +326,54 @@ function Card({
   action?: ReactNode
 }) {
   return (
-    <section
-      className={`panel ${className}`}
-    >
+    <section className={`panel ${className}`}>
       <div className="panel-heading">
         <h2>{title}</h2>
-
         {action}
       </div>
 
       {children}
+    </section>
+  )
+}
+
+/* ============================================================
+   FEATURE WORKSPACE
+============================================================ */
+
+function FeaturePage({
+  title,
+  description,
+  icon: Icon,
+  children,
+}: FeaturePageProps) {
+  return (
+    <section className="feature-page">
+      <div className="feature-page-header">
+        <div className="feature-page-icon">
+          <Icon size={24} />
+        </div>
+
+        <div>
+          <h1>{title}</h1>
+          <p>{description}</p>
+        </div>
+      </div>
+
+      <div className="feature-page-content">
+        {children ?? (
+          <section className="panel feature-placeholder">
+            <Icon size={34} />
+
+            <h2>{title}</h2>
+
+            <p>
+              This intelligence workspace is ready for its live
+              VIZHIPPAAN backend feature integration.
+            </p>
+          </section>
+        )}
+      </div>
     </section>
   )
 }
@@ -461,36 +396,27 @@ function RiskDistribution({
   const data = [
     {
       name: 'Low Risk',
-      value:
-        risk.Low?.percent ?? 49.4,
-      count:
-        risk.Low?.count ?? 98732,
+      value: risk.Low?.percent ?? 49.4,
+      count: risk.Low?.count ?? 98732,
       color: 'var(--risk-low)',
     },
     {
       name: 'Medium Risk',
-      value:
-        risk.Medium?.percent ?? 31.2,
-      count:
-        risk.Medium?.count ?? 62415,
+      value: risk.Medium?.percent ?? 31.2,
+      count: risk.Medium?.count ?? 62415,
       color: 'var(--risk-medium)',
     },
     {
       name: 'High Risk',
-      value:
-        risk.High?.percent ?? 14.2,
-      count:
-        risk.High?.count ?? 28457,
+      value: risk.High?.percent ?? 14.2,
+      count: risk.High?.count ?? 28457,
       color: 'var(--risk-high)',
     },
     {
       name: 'Critical Risk',
-      value:
-        risk.Critical?.percent ?? 5.2,
-      count:
-        risk.Critical?.count ?? 10396,
-      color:
-        'var(--risk-critical)',
+      value: risk.Critical?.percent ?? 5.2,
+      count: risk.Critical?.count ?? 10396,
+      color: 'var(--risk-critical)',
     },
   ]
 
@@ -523,11 +449,8 @@ function RiskDistribution({
 
         <div className="donut-label">
           <strong>
-            {Number(
-              total
-            ).toLocaleString()}
+            {Number(total).toLocaleString()}
           </strong>
-
           <span>Students</span>
         </div>
       </div>
@@ -540,8 +463,7 @@ function RiskDistribution({
           >
             <i
               style={{
-                background:
-                  item.color,
+                background: item.color,
               }}
             />
 
@@ -609,8 +531,7 @@ function TrendChart({
             tickLine={false}
             axisLine={false}
             tick={{
-              fill:
-                'var(--muted-foreground)',
+              fill: 'var(--muted-foreground)',
               fontSize: 10,
             }}
           />
@@ -619,8 +540,7 @@ function TrendChart({
             tickLine={false}
             axisLine={false}
             tick={{
-              fill:
-                'var(--muted-foreground)',
+              fill: 'var(--muted-foreground)',
               fontSize: 10,
             }}
             domain={[0, 100]}
@@ -707,12 +627,17 @@ export default function Page() {
   const [
     factorData,
     setFactorData,
-  ] = useState<any[]>([])
+  ] =
+    useState<any[]>([])
 
   const [
     apiConnected,
     setApiConnected,
   ] = useState(false)
+
+  /* ==========================================================
+     TOAST
+  ========================================================== */
 
   const notify = (
     message: string
@@ -726,7 +651,7 @@ export default function Page() {
   }
 
   /* ==========================================================
-     LOAD BACKEND DATA
+     LOAD BACKEND OVERVIEW
   ========================================================== */
 
   useEffect(() => {
@@ -761,6 +686,10 @@ export default function Page() {
         setApiConnected(false)
       })
   }, [])
+
+  /* ==========================================================
+     OVERVIEW DATA
+  ========================================================== */
 
   const summary =
     overview?.summary
@@ -809,13 +738,844 @@ export default function Page() {
     label: string
   ) => {
     setOpenModule(
-      (
-        current
-      ) =>
+      (current) =>
         current === label
           ? null
           : label
     )
+  }
+
+  const selectFeature = (
+    label: string
+  ) => {
+    setActive(label)
+
+    notify(
+      `${label} selected`
+    )
+  }
+
+  /* ==========================================================
+     OVERVIEW WORKSPACE
+  ========================================================== */
+
+  const renderOverview = () => (
+    <>
+      {/* KPI ROW */}
+
+      <div className="metric-grid">
+        <MetricCard
+          icon={Users}
+          label="Total Students"
+          value={Number(
+            totalStudents
+          ).toLocaleString()}
+          note={
+            apiConnected
+              ? 'Live dataset'
+              : 'Backend fallback'
+          }
+          color="var(--risk-purple)"
+          tone="var(--success)"
+        />
+
+        <MetricCard
+          icon={ShieldCheck}
+          label="Low Risk"
+          value={Number(
+            risk.Low?.count ??
+              98732
+          ).toLocaleString()}
+          note={`${
+            risk.Low?.percent ??
+            49.4
+          }% of students`}
+          color="var(--risk-low)"
+          tone="var(--muted-foreground)"
+        />
+
+        <MetricCard
+          icon={AlertTriangle}
+          label="Medium Risk"
+          value={Number(
+            risk.Medium?.count ??
+              62415
+          ).toLocaleString()}
+          note={`${
+            risk.Medium?.percent ??
+            31.2
+          }% of students`}
+          color="var(--risk-medium)"
+          tone="var(--muted-foreground)"
+        />
+
+        <MetricCard
+          icon={AlertTriangle}
+          label="High Risk"
+          value={Number(
+            risk.High?.count ??
+              28457
+          ).toLocaleString()}
+          note={`${
+            risk.High?.percent ??
+            14.2
+          }% of students`}
+          color="var(--risk-high)"
+          tone="var(--muted-foreground)"
+        />
+
+        <MetricCard
+          icon={AlertTriangle}
+          label="Critical Risk"
+          value={Number(
+            risk.Critical?.count ??
+              10396
+          ).toLocaleString()}
+          note={`${
+            risk.Critical?.percent ??
+            5.2
+          }% of students`}
+          color="var(--risk-critical)"
+          tone="var(--muted-foreground)"
+        />
+      </div>
+
+      {/* CLEAN OVERVIEW ROW */}
+
+      <div className="grid-row row-one">
+
+        <Card
+          title="Risk Distribution"
+          className="distribution-card"
+        >
+          <RiskDistribution
+            summary={summary}
+          />
+        </Card>
+
+        <Card
+          title="Risk Trend Over Time"
+          className="trend-card"
+        >
+          <TrendChart
+            data={
+              overview?.risk_trend
+            }
+          />
+        </Card>
+
+        <Card
+          title="Top Risk Factors (Overall)"
+          className="factors-card"
+        >
+          <div className="factor-list">
+
+            {displayFactors.map(
+              ([
+                name,
+                value,
+                color,
+              ]) => (
+                <div
+                  className="factor-row"
+                  key={name}
+                >
+                  <span>
+                    {name}
+                  </span>
+
+                  <div className="factor-bar">
+                    <i
+                      style={{
+                        width: `${value}%`,
+                        background:
+                          color,
+                      }}
+                    />
+                  </div>
+
+                  <b>
+                    {value}%
+                  </b>
+                </div>
+              )
+            )}
+
+          </div>
+
+          <button
+            type="button"
+            className="outline-button"
+            onClick={() =>
+              notify(
+                'Showing all risk factors'
+              )
+            }
+          >
+            View All Factors
+
+            <ArrowRight
+              size={15}
+            />
+          </button>
+        </Card>
+      </div>
+    </>
+  )
+
+  /* ==========================================================
+     HEATMAP WORKSPACE
+  ========================================================== */
+
+  const renderHeatmap = () => (
+    <FeaturePage
+      title="GIS Educational Risk Heatmap"
+      description="Explore dropout-risk concentration geographically across districts, blocks, villages and schools."
+      icon={Map}
+    >
+      <Card
+        title="District Risk Heatmap"
+        className="heatmap-card"
+      >
+        <div className="map-placeholder">
+          <div className="map-grid" />
+
+          <div className="map-shape">
+            <span />
+            <span />
+            <span />
+            <span />
+            <span />
+            <span />
+            <span />
+            <span />
+            <span />
+          </div>
+
+          <div className="map-controls">
+            <button
+              type="button"
+              onClick={() =>
+                notify(
+                  'Map zoomed in'
+                )
+              }
+            >
+              +
+            </button>
+
+            <button
+              type="button"
+              onClick={() =>
+                notify(
+                  'Map zoomed out'
+                )
+              }
+            >
+              −
+            </button>
+
+            <button
+              type="button"
+              onClick={() =>
+                notify(
+                  'Map reset'
+                )
+              }
+            >
+              ⌗
+            </button>
+          </div>
+
+          <div className="map-key">
+            <strong>
+              Risk Level
+            </strong>
+
+            <span>
+              <i className="low-dot" />
+              Low
+            </span>
+
+            <span>
+              <i className="medium-dot" />
+              Medium
+            </span>
+
+            <span>
+              <i className="high-dot" />
+              High
+            </span>
+
+            <span>
+              <i className="critical-dot" />
+              Critical
+            </span>
+          </div>
+        </div>
+      </Card>
+    </FeaturePage>
+  )
+
+  /* ==========================================================
+     INTERVENTION SIMULATOR WORKSPACE
+  ========================================================== */
+
+  const renderInterventionSimulator = () => (
+    <FeaturePage
+      title="Intervention Impact Simulator"
+      description="Compare support strategies and estimate how individual interventions could reduce student dropout risk."
+      icon={CircleDollarSign}
+    >
+      <div className="grid-row">
+
+        <Card
+          title={
+            <>
+              Intervention Impact{' '}
+              <em>
+                Simulator
+              </em>
+            </>
+          }
+          className="intervention-card"
+        >
+          <div className="intervention-list">
+
+            {[
+              [
+                'Scholarship Program',
+                '18.6%',
+              ],
+              [
+                'Counselling Support',
+                '14.2%',
+              ],
+              [
+                'Attendance Support',
+                '12.7%',
+              ],
+              [
+                'Free Meal Program',
+                '9.8%',
+              ],
+              [
+                'Remedial Classes',
+                '8.1%',
+              ],
+            ].map(
+              (
+                [
+                  name,
+                  value,
+                ],
+                index
+              ) => (
+                <div
+                  key={name}
+                >
+                  <span>
+                    <i
+                      className={`impact-icon i-${index}`}
+                    />
+                    {name}
+                  </span>
+
+                  <b>
+                    ↓ {value}
+                  </b>
+                </div>
+              )
+            )}
+
+          </div>
+
+          <button
+            type="button"
+            className="primary-button"
+            onClick={() =>
+              notify(
+                'Intervention simulation started'
+              )
+            }
+          >
+            Run Simulator
+          </button>
+        </Card>
+
+        <Card title="Simulation Guidance">
+          <div className="feature-info-list">
+            <div>
+              <strong>
+                Attendance Improvement
+              </strong>
+              <span>
+                Model the effect of improved regular attendance.
+              </span>
+            </div>
+
+            <div>
+              <strong>
+                Financial Support
+              </strong>
+              <span>
+                Test scholarship and welfare assistance scenarios.
+              </span>
+            </div>
+
+            <div>
+              <strong>
+                Transport Support
+              </strong>
+              <span>
+                Estimate impact of reducing commute barriers.
+              </span>
+            </div>
+
+            <div>
+              <strong>
+                Counselling
+              </strong>
+              <span>
+                Simulate behavioural and mentoring interventions.
+              </span>
+            </div>
+          </div>
+        </Card>
+
+      </div>
+    </FeaturePage>
+  )
+
+  /* ==========================================================
+     RESOURCE ALLOCATION
+  ========================================================== */
+
+  const renderResourceAllocation = () => (
+    <FeaturePage
+      title="AI Resource Allocation Optimizer"
+      description="Optimize scholarships, counsellors, devices, meals and support resources for maximum educational impact."
+      icon={HandCoins}
+    >
+      <Card
+        title={
+          <>
+            Optimal Allocation{' '}
+            <em>
+              AI Optimizer
+            </em>
+          </>
+        }
+        className="resource"
+      >
+        <div className="resource-grid">
+
+          <div>
+            <GraduationCap
+              size={18}
+            />
+
+            <span>
+              Scholarships
+            </span>
+
+            <b>
+              2,450
+            </b>
+          </div>
+
+          <div>
+            <Users size={18} />
+
+            <span>
+              Counsellors
+            </span>
+
+            <b>
+              120
+            </b>
+          </div>
+
+          <div>
+            <PackageOpen
+              size={18}
+            />
+
+            <span>
+              Devices
+            </span>
+
+            <b>
+              1,820
+            </b>
+          </div>
+
+          <div>
+            <HandCoins
+              size={18}
+            />
+
+            <span>
+              Meals
+            </span>
+
+            <b>
+              5,600
+            </b>
+          </div>
+
+        </div>
+
+        <button
+          type="button"
+          className="outline-button"
+          onClick={() =>
+            notify(
+              'Opening allocation plan'
+            )
+          }
+        >
+          View Allocation Plan
+        </button>
+      </Card>
+    </FeaturePage>
+  )
+
+  /* ==========================================================
+     OPPORTUNITY DETECTOR
+  ========================================================== */
+
+  const renderOpportunityDetector = () => (
+    <FeaturePage
+      title="Opportunity Detector"
+      description="Detect students who could improve significantly with timely and appropriate support."
+      icon={Lightbulb}
+    >
+      <Card
+        title="Opportunity Intelligence"
+        className="opportunity"
+      >
+        <div className="opportunity-body">
+
+          <div className="progress-ring">
+            <svg viewBox="0 0 42 42">
+              <circle
+                cx="21"
+                cy="21"
+                r="15.9"
+              />
+
+              <circle
+                className="progress"
+                cx="21"
+                cy="21"
+                r="15.9"
+              />
+            </svg>
+
+            <strong>
+              72%
+            </strong>
+
+            <span>
+              High Potential
+            </span>
+          </div>
+
+          <p>
+            <b>
+              14,856 students
+            </b>{' '}
+            can significantly improve with targeted support.
+          </p>
+
+        </div>
+
+        <button
+          type="button"
+          className="outline-button"
+          onClick={() =>
+            notify(
+              'Showing opportunity candidates'
+            )
+          }
+        >
+          View Opportunities
+        </button>
+      </Card>
+    </FeaturePage>
+  )
+
+  /* ==========================================================
+     FAIRNESS AUDITOR
+  ========================================================== */
+
+  const renderFairnessAuditor = () => (
+    <FeaturePage
+      title="AI Fairness Auditor"
+      description="Evaluate model outcomes across student groups and monitor potential algorithmic bias."
+      icon={ShieldCheck}
+    >
+      <div className="grid-row">
+
+        <Card title="Gender Parity">
+          <div className="audit-stat">
+            <span>
+              Gender Parity Difference
+            </span>
+
+            <b>
+              2.6%{' '}
+              <em>
+                (Good)
+              </em>
+            </b>
+
+            <CheckCircle2
+              size={20}
+            />
+          </div>
+        </Card>
+
+        <Card title="Groups Monitored">
+          <div className="audit-stat bottom">
+            <span>
+              Protected / Comparison Groups
+            </span>
+
+            <b>
+              <Users
+                size={16}
+              />{' '}
+              6
+            </b>
+          </div>
+        </Card>
+
+      </div>
+    </FeaturePage>
+  )
+
+  /* ==========================================================
+     APP QUALITY / SYSTEM HEALTH
+  ========================================================== */
+
+  const renderQualityGuardian = () => (
+    <FeaturePage
+      title="App Quality Guardian"
+      description="Monitor model health, API availability, data pipelines and operational reliability."
+      icon={HeartPulse}
+    >
+      <Card
+        title="System Health"
+        className="health"
+      >
+        <div className="health-list">
+
+          <div>
+            <span>
+              <CheckCircle2
+                size={15}
+              />{' '}
+              Model Status
+            </span>
+
+            <b
+              className={
+                overview
+                  ?.model_status
+                  ?.loaded
+                  ? 'healthy'
+                  : ''
+              }
+            >
+              {overview
+                ?.model_status
+                ?.loaded
+                ? 'Healthy'
+                : 'Offline'}
+            </b>
+          </div>
+
+          <div>
+            <span>
+              <CheckCircle2
+                size={15}
+              />{' '}
+              API Status
+            </span>
+
+            <b
+              className={
+                apiConnected
+                  ? 'healthy'
+                  : ''
+              }
+            >
+              {apiConnected
+                ? 'Healthy'
+                : 'Offline'}
+            </b>
+          </div>
+
+          <div>
+            <span>
+              <Database
+                size={15}
+              />{' '}
+              Data Pipeline
+            </span>
+
+            <b
+              className={
+                summary
+                  ? 'healthy'
+                  : ''
+              }
+            >
+              {summary
+                ? 'Healthy'
+                : 'Offline'}
+            </b>
+          </div>
+
+          <div>
+            <span>
+              <Clock3
+                size={15}
+              />{' '}
+              Last Updated
+            </span>
+
+            <b>
+              {apiConnected
+                ? 'Live'
+                : 'Waiting'}
+            </b>
+          </div>
+
+        </div>
+      </Card>
+    </FeaturePage>
+  )
+
+  /* ==========================================================
+     ACTIVE CONTENT ROUTER
+  ========================================================== */
+
+  const renderActiveContent = () => {
+    switch (active) {
+      case 'Overview':
+        return renderOverview()
+
+      case 'AI Student Digital Twin':
+        return (
+          <FeaturePage
+            title="AI Student Digital Twin"
+            description="Live student intelligence profile combining academic, attendance, behavioural and socioeconomic indicators."
+            icon={Bot}
+          />
+        )
+
+      case 'Student Journey Timeline':
+        return (
+          <FeaturePage
+            title="Student Journey Timeline"
+            description="Follow each student's educational journey, risk progression, interventions and important milestones over time."
+            icon={Clock3}
+          />
+        )
+
+      case 'Risk Explanation':
+        return (
+          <FeaturePage
+            title="Explainable Risk Intelligence"
+            description="Understand the precise factors contributing to each AI risk prediction using explainability insights."
+            icon={Info}
+          />
+        )
+
+      case 'Early Warning Horizon':
+        return (
+          <FeaturePage
+            title="Early Warning Horizon"
+            description="Forecast likely student-risk movement across future 30-day, 60-day, 90-day and longer horizons."
+            icon={Target}
+          />
+        )
+
+      case 'AI Root Cause Graph':
+        return (
+          <FeaturePage
+            title="AI Root Cause Graph"
+            description="Visualize relationships such as financial hardship → transport barriers → absenteeism → educational disengagement."
+            icon={Network}
+          />
+        )
+
+      case 'Future School Simulator':
+        return (
+          <FeaturePage
+            title="Future School Simulator"
+            description="Model future school-level outcomes under different attendance, academic, resource and intervention scenarios."
+            icon={Building2}
+          />
+        )
+
+      case 'Opportunity Detector':
+        return renderOpportunityDetector()
+
+      case 'Intervention Simulator':
+        return renderInterventionSimulator()
+
+      case 'Resource Allocation':
+        return renderResourceAllocation()
+
+      case 'Intervention Marketplace':
+        return (
+          <FeaturePage
+            title="Intervention Marketplace"
+            description="Browse intervention options with estimated costs, target groups, expected success and implementation priority."
+            icon={ShoppingCart}
+          />
+        )
+
+      case 'AI Policy Simulator':
+        return (
+          <FeaturePage
+            title="AI Policy Simulator"
+            description="Estimate potential outcomes of educational policies before district or state-level deployment."
+            icon={Landmark}
+          />
+        )
+
+      case 'Heatmap':
+        return renderHeatmap()
+
+      case 'AI Fairness Auditor':
+        return renderFairnessAuditor()
+
+      case 'Multi-Agent Council':
+        return (
+          <FeaturePage
+            title="Multi-Agent Council"
+            description="Multiple specialized AI reasoning agents collaboratively evaluate student risk, intervention and policy decisions."
+            icon={BrainCircuit}
+          />
+        )
+
+      case 'App Quality Guardian':
+        return renderQualityGuardian()
+
+      default:
+        return (
+          <FeaturePage
+            title={active}
+            description="VIZHIPPAAN intelligence workspace."
+            icon={Sparkles}
+          />
+        )
+    }
   }
 
   /* ==========================================================
@@ -840,6 +1600,7 @@ export default function Page() {
         {/* BRAND */}
 
         <div className="brand">
+
           <a
             href="/"
             aria-label="VIZHIPPAAN dashboard home"
@@ -862,6 +1623,7 @@ export default function Page() {
               size={17}
             />
           </button>
+
         </div>
 
         {/* NAVIGATION */}
@@ -878,12 +1640,8 @@ export default function Page() {
                 : ''
             }`}
             onClick={() => {
-              setActive(
-                'Overview'
-              )
-
+              setActive('Overview')
               setOpenModule(null)
-
               notify(
                 'Overview selected'
               )
@@ -957,10 +1715,11 @@ export default function Page() {
                     />
                   </button>
 
-                  {/* CHILDREN */}
+                  {/* CHILD FEATURES */}
 
                   {isOpen && (
                     <div className="nav-submenu">
+
                       {module.items.map(
                         (item) => {
                           const ItemIcon =
@@ -978,15 +1737,11 @@ export default function Page() {
                                   ? 'active'
                                   : ''
                               }`}
-                              onClick={() => {
-                                setActive(
+                              onClick={() =>
+                                selectFeature(
                                   item.label
                                 )
-
-                                notify(
-                                  `${item.label} selected`
-                                )
-                              }}
+                              }
                             >
                               <ItemIcon
                                 size={15}
@@ -1001,17 +1756,21 @@ export default function Page() {
                           )
                         }
                       )}
+
                     </div>
                   )}
+
                 </div>
               )
             }
           )}
+
         </nav>
 
         {/* ADMIN */}
 
         <div className="admin-card">
+
           <div className="admin-avatar">
             <Users size={20} />
           </div>
@@ -1029,7 +1788,9 @@ export default function Page() {
           <ChevronDown
             size={15}
           />
+
         </div>
+
       </aside>
 
       {/* ======================================================
@@ -1041,6 +1802,7 @@ export default function Page() {
         {/* TOP BAR */}
 
         <header className="topbar">
+
           <div className="welcome">
 
             <button
@@ -1058,17 +1820,24 @@ export default function Page() {
 
             <div>
               <h1>
-                Welcome back,
-                Admin!{' '}
-                <span>👋</span>
+                {active === 'Overview'
+                  ? 'Welcome back, Admin!'
+                  : active}{' '}
+
+                {active === 'Overview' && (
+                  <span>
+                    👋
+                  </span>
+                )}
               </h1>
 
               <p>
-                Empowering every
-                child to stay,
-                learn and thrive.
+                {active === 'Overview'
+                  ? 'Empowering every child to stay, learn and thrive.'
+                  : 'VIZHIPPAAN Intelligence Workspace'}
               </p>
             </div>
+
           </div>
 
           <div className="top-actions">
@@ -1115,7 +1884,9 @@ export default function Page() {
             >
               <Bell size={20} />
 
-              <b>3</b>
+              <b>
+                3
+              </b>
             </button>
 
             <button
@@ -1133,856 +1904,59 @@ export default function Page() {
 
               Export Report
             </button>
+
           </div>
+
         </header>
 
         {/* ====================================================
-            DASHBOARD CONTENT
+            DYNAMIC CONTENT
         ==================================================== */}
 
         <div className="content">
-
-          {/* KPI CARDS */}
-
-          <div className="metric-grid">
-
-            <MetricCard
-              icon={Users}
-              label="Total Students"
-              value={Number(
-                totalStudents
-              ).toLocaleString()}
-              note={
-                apiConnected
-                  ? 'Live dataset'
-                  : 'Backend fallback'
-              }
-              color="var(--risk-purple)"
-              tone="var(--success)"
-            />
-
-            <MetricCard
-              icon={ShieldCheck}
-              label="Low Risk"
-              value={Number(
-                risk.Low?.count ??
-                  98732
-              ).toLocaleString()}
-              note={`${
-                risk.Low
-                  ?.percent ??
-                49.4
-              }% of students`}
-              color="var(--risk-low)"
-              tone="var(--muted-foreground)"
-            />
-
-            <MetricCard
-              icon={
-                AlertTriangle
-              }
-              label="Medium Risk"
-              value={Number(
-                risk.Medium
-                  ?.count ??
-                  62415
-              ).toLocaleString()}
-              note={`${
-                risk.Medium
-                  ?.percent ??
-                31.2
-              }% of students`}
-              color="var(--risk-medium)"
-              tone="var(--muted-foreground)"
-            />
-
-            <MetricCard
-              icon={
-                AlertTriangle
-              }
-              label="High Risk"
-              value={Number(
-                risk.High?.count ??
-                  28457
-              ).toLocaleString()}
-              note={`${
-                risk.High
-                  ?.percent ??
-                14.2
-              }% of students`}
-              color="var(--risk-high)"
-              tone="var(--muted-foreground)"
-            />
-
-            <MetricCard
-              icon={
-                AlertTriangle
-              }
-              label="Critical Risk"
-              value={Number(
-                risk.Critical
-                  ?.count ??
-                  10396
-              ).toLocaleString()}
-              note={`${
-                risk.Critical
-                  ?.percent ??
-                5.2
-              }% of students`}
-              color="var(--risk-critical)"
-              tone="var(--muted-foreground)"
-            />
-          </div>
-
-          {/* ==================================================
-              ROW ONE
-          ================================================== */}
-
-          <div className="grid-row row-one">
-
-            <Card
-              title="Risk Distribution"
-              className="distribution-card"
-            >
-              <RiskDistribution
-                summary={
-                  summary
-                }
-              />
-            </Card>
-
-            <Card
-              title="Risk Trend Over Time"
-              className="trend-card"
-            >
-              <TrendChart
-                data={
-                  overview?.risk_trend
-                }
-              />
-            </Card>
-
-            <Card
-              title="Top Risk Factors (Overall)"
-              className="factors-card"
-            >
-              <div className="factor-list">
-                {displayFactors.map(
-                  ([
-                    name,
-                    value,
-                    color,
-                  ]) => (
-                    <div
-                      className="factor-row"
-                      key={name}
-                    >
-                      <span>
-                        {name}
-                      </span>
-
-                      <div className="factor-bar">
-                        <i
-                          style={{
-                            width: `${value}%`,
-                            background:
-                              color,
-                          }}
-                        />
-                      </div>
-
-                      <b>
-                        {value}%
-                      </b>
-                    </div>
-                  )
-                )}
-              </div>
-
-              <button
-                type="button"
-                className="outline-button"
-                onClick={() =>
-                  notify(
-                    'Showing all risk factors'
-                  )
-                }
-              >
-                View All Factors
-
-                <ArrowRight
-                  size={15}
-                />
-              </button>
-            </Card>
-          </div>
-
-          {/* ==================================================
-              ROW TWO
-          ================================================== */}
-
-          <div className="grid-row row-two">
-
-            {/* HEATMAP */}
-
-            <Card
-              title="District Risk Heatmap"
-              className="heatmap-card"
-            >
-              <div className="map-placeholder">
-
-                <div className="map-grid" />
-
-                <div className="map-shape">
-                  <span />
-                  <span />
-                  <span />
-                  <span />
-                  <span />
-                  <span />
-                  <span />
-                  <span />
-                  <span />
-                </div>
-
-                <div className="map-controls">
-                  <button
-                    type="button"
-                    onClick={() =>
-                      notify(
-                        'Map zoomed in'
-                      )
-                    }
-                  >
-                    +
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() =>
-                      notify(
-                        'Map zoomed out'
-                      )
-                    }
-                  >
-                    −
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() =>
-                      notify(
-                        'Map reset'
-                      )
-                    }
-                  >
-                    ⌗
-                  </button>
-                </div>
-
-                <div className="map-key">
-                  <strong>
-                    Risk Level
-                  </strong>
-
-                  <span>
-                    <i className="low-dot" />
-                    Low
-                  </span>
-
-                  <span>
-                    <i className="medium-dot" />
-                    Medium
-                  </span>
-
-                  <span>
-                    <i className="high-dot" />
-                    High
-                  </span>
-
-                  <span>
-                    <i className="critical-dot" />
-                    Critical
-                  </span>
-                </div>
-              </div>
-
-              <button
-                type="button"
-                className="outline-button map-button"
-                onClick={() =>
-                  notify(
-                    'Opening full district map'
-                  )
-                }
-              >
-                View Full Map
-              </button>
-            </Card>
-
-            {/* INTERVENTION */}
-
-            <Card
-              title={
-                <>
-                  Intervention Impact{' '}
-                  <em>
-                    (Simulator
-                    Preview)
-                  </em>
-                </>
-              }
-              className="intervention-card"
-            >
-              <div className="intervention-list">
-                {[
-                  [
-                    'Scholarship Program',
-                    '18.6%',
-                  ],
-                  [
-                    'Counselling Support',
-                    '14.2%',
-                  ],
-                  [
-                    'Attendance Support',
-                    '12.7%',
-                  ],
-                  [
-                    'Free Meal Program',
-                    '9.8%',
-                  ],
-                  [
-                    'Remedial Classes',
-                    '8.1%',
-                  ],
-                ].map(
-                  (
-                    [
-                      name,
-                      value,
-                    ],
-                    index
-                  ) => (
-                    <div
-                      key={name}
-                    >
-                      <span>
-                        <i
-                          className={`impact-icon i-${index}`}
-                        />
-
-                        {name}
-                      </span>
-
-                      <b>
-                        ↓ {value}
-                      </b>
-                    </div>
-                  )
-                )}
-              </div>
-
-              <button
-                type="button"
-                className="primary-button"
-                onClick={() =>
-                  notify(
-                    'Simulator ready'
-                  )
-                }
-              >
-                Run Simulator
-              </button>
-            </Card>
-
-            {/* ALERTS */}
-
-            <Card
-              title="Alerts & Early Warnings"
-              className="alerts-card"
-              action={
-                <button
-                  type="button"
-                  className="text-button"
-                  onClick={() =>
-                    notify(
-                      'Showing all alerts'
-                    )
-                  }
-                >
-                  View All
-                </button>
-              }
-            >
-              <div className="alerts-list">
-
-                <button
-                  type="button"
-                  className="alert alert-red"
-                  onClick={() =>
-                    notify(
-                      '1,250 students moved to High Risk'
-                    )
-                  }
-                >
-                  <AlertTriangle
-                    size={17}
-                  />
-
-                  <span>
-                    <strong>
-                      1,250
-                      students moved
-                      to High Risk
-                    </strong>
-
-                    <small>
-                      in the last 7
-                      days
-                    </small>
-                  </span>
-
-                  <ChevronRight
-                    size={16}
-                  />
-                </button>
-
-                <button
-                  type="button"
-                  className="alert alert-orange"
-                  onClick={() =>
-                    notify(
-                      '342 students at risk of dropout'
-                    )
-                  }
-                >
-                  <AlertTriangle
-                    size={17}
-                  />
-
-                  <span>
-                    <strong>
-                      342 students
-                      at risk of
-                      dropout
-                    </strong>
-
-                    <small>
-                      within next
-                      30 days
-                    </small>
-                  </span>
-
-                  <ChevronRight
-                    size={16}
-                  />
-                </button>
-
-                <button
-                  type="button"
-                  className="alert alert-yellow"
-                  onClick={() =>
-                    notify(
-                      '5 schools require immediate attention'
-                    )
-                  }
-                >
-                  <Zap size={17} />
-
-                  <span>
-                    <strong>
-                      5 schools
-                      require
-                      immediate
-                      attention
-                    </strong>
-
-                    <small>
-                      High risk
-                      concentration
-                      detected
-                    </small>
-                  </span>
-
-                  <ChevronRight
-                    size={16}
-                  />
-                </button>
-
-                <button
-                  type="button"
-                  className="alert alert-blue"
-                  onClick={() =>
-                    notify(
-                      'Data quality issues detected'
-                    )
-                  }
-                >
-                  <Database
-                    size={17}
-                  />
-
-                  <span>
-                    <strong>
-                      Data quality
-                      issues
-                      detected
-                    </strong>
-
-                    <small>
-                      3 datasets
-                      need review
-                    </small>
-                  </span>
-
-                  <ChevronRight
-                    size={16}
-                  />
-                </button>
-              </div>
-            </Card>
-          </div>
-
-          {/* ==================================================
-              ROW THREE
-          ================================================== */}
-
-          <div className="grid-row row-three">
-
-            {/* OPPORTUNITY */}
-
-            <Card
-              title="Opportunity Detector"
-              className="utility-card opportunity"
-            >
-              <div className="opportunity-body">
-
-                <div className="progress-ring">
-                  <svg viewBox="0 0 42 42">
-                    <circle
-                      cx="21"
-                      cy="21"
-                      r="15.9"
-                    />
-
-                    <circle
-                      className="progress"
-                      cx="21"
-                      cy="21"
-                      r="15.9"
-                    />
-                  </svg>
-
-                  <strong>
-                    72%
-                  </strong>
-
-                  <span>
-                    High Potential
-                  </span>
-                </div>
-
-                <p>
-                  <b>
-                    14,856
-                    students
-                  </b>{' '}
-                  can significantly
-                  improve with right
-                  support
-                </p>
-              </div>
-
-              <button
-                type="button"
-                className="outline-button"
-                onClick={() =>
-                  notify(
-                    'Showing opportunities'
-                  )
-                }
-              >
-                View Opportunities
-              </button>
-            </Card>
-
-            {/* FAIRNESS */}
-
-            <Card
-              title="AI Fairness Auditor"
-              className="utility-card"
-            >
-              <div className="audit-stat">
-                <span>
-                  Gender Parity
-                  Difference
-                </span>
-
-                <b>
-                  2.6%{' '}
-                  <em>
-                    (Good)
-                  </em>
-                </b>
-
-                <CheckCircle2
-                  size={20}
-                />
-              </div>
-
-              <div className="audit-stat bottom">
-                <span>
-                  Groups Monitored
-                </span>
-
-                <b>
-                  <Users
-                    size={16}
-                  />{' '}
-                  6
-                </b>
-              </div>
-
-              <button
-                type="button"
-                className="outline-button"
-                onClick={() =>
-                  notify(
-                    'Opening fairness report'
-                  )
-                }
-              >
-                View Report
-              </button>
-            </Card>
-
-            {/* RESOURCE ALLOCATION */}
-
-            <Card
-              title={
-                <>
-                  Resource
-                  Allocation{' '}
-                  <em>
-                    (AI Optimizer)
-                  </em>
-                </>
-              }
-              className="utility-card resource"
-            >
-              <p className="small-heading">
-                Optimal Allocation
-                Suggestion
-              </p>
-
-              <div className="resource-grid">
-
-                <div>
-                  <GraduationCap
-                    size={17}
-                  />
-
-                  <span>
-                    Scholarships
-                  </span>
-
-                  <b>2,450</b>
-                </div>
-
-                <div>
-                  <Users
-                    size={17}
-                  />
-
-                  <span>
-                    Counsellors
-                  </span>
-
-                  <b>120</b>
-                </div>
-
-                <div>
-                  <PackageOpen
-                    size={17}
-                  />
-
-                  <span>
-                    Devices
-                  </span>
-
-                  <b>1,820</b>
-                </div>
-
-                <div>
-                  <HandCoins
-                    size={17}
-                  />
-
-                  <span>
-                    Meals
-                  </span>
-
-                  <b>5,600</b>
-                </div>
-              </div>
-
-              <button
-                type="button"
-                className="outline-button"
-                onClick={() =>
-                  notify(
-                    'Opening allocation plan'
-                  )
-                }
-              >
-                View Allocation
-                Plan
-              </button>
-            </Card>
-
-            {/* SYSTEM */}
-
-            <Card
-              title="System Health"
-              className="utility-card health"
-            >
-              <div className="health-list">
-
-                <div>
-                  <span>
-                    <CheckCircle2
-                      size={15}
-                    />{' '}
-                    Model Status
-                  </span>
-
-                  <b
-                    className={
-                      overview
-                        ?.model_status
-                        ?.loaded
-                        ? 'healthy'
-                        : ''
-                    }
-                  >
-                    {overview
-                      ?.model_status
-                      ?.loaded
-                      ? 'Healthy'
-                      : 'Offline'}
-                  </b>
-                </div>
-
-                <div>
-                  <span>
-                    <CheckCircle2
-                      size={15}
-                    />{' '}
-                    API Status
-                  </span>
-
-                  <b
-                    className={
-                      apiConnected
-                        ? 'healthy'
-                        : ''
-                    }
-                  >
-                    {apiConnected
-                      ? 'Healthy'
-                      : 'Offline'}
-                  </b>
-                </div>
-
-                <div>
-                  <span>
-                    <Database
-                      size={15}
-                    />{' '}
-                    Data Pipeline
-                  </span>
-
-                  <b
-                    className={
-                      summary
-                        ? 'healthy'
-                        : ''
-                    }
-                  >
-                    {summary
-                      ? 'Healthy'
-                      : 'Offline'}
-                  </b>
-                </div>
-
-                <div>
-                  <span>
-                    <Clock3
-                      size={15}
-                    />{' '}
-                    Last Updated
-                  </span>
-
-                  <b>
-                    {apiConnected
-                      ? 'Live'
-                      : 'Waiting'}
-                  </b>
-                </div>
-              </div>
-
-              <button
-                type="button"
-                className="outline-button"
-                onClick={() =>
-                  notify(
-                    'Opening system dashboard'
-                  )
-                }
-              >
-                System Dashboard
-              </button>
-            </Card>
-          </div>
+          {renderActiveContent()}
         </div>
 
-        {/* ====================================================
-            FOOTER
-        ==================================================== */}
+        {/* FOOTER */}
 
         <footer>
+
           <span>
             <span className="heart">
               ♥
             </span>{' '}
-            Every child has
-            potential. VIZHIPPAAN
-            ensures no child is
-            left behind.
+
+            Every child has potential.
+            VIZHIPPAAN ensures no child
+            is left behind.
           </span>
 
           <span>
             VIZHIPPAAN © 2026
+
             <i />
+
             AI for Social Good
           </span>
+
         </footer>
+
       </div>
 
-      {/* ======================================================
-          TOAST
-      ====================================================== */}
+      {/* TOAST */}
 
       {toast && (
         <div className="toast">
+
           <CheckCircle2
             size={16}
           />
 
           {toast}
+
         </div>
       )}
+
     </main>
   )
 }
