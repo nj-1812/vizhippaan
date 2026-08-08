@@ -19,6 +19,7 @@ from app.routers import (
     policy,
     quality,
     digital_twin,
+    student_intelligence,
 )
 
 
@@ -77,6 +78,7 @@ routers = [
     policy.router,
     quality.router,
     digital_twin.router,
+    student_intelligence.router,
 ]
 
 
