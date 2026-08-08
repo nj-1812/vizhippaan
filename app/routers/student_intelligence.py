@@ -15,6 +15,10 @@ router = APIRouter(
 )
 
 
+# ============================================================
+# AI STUDENT DIGITAL TWIN
+# ============================================================
+
 @router.post("/digital-twin")
 async def digital_twin(
     payload: StudentIntelligenceRequest,
@@ -30,6 +34,10 @@ async def digital_twin(
             detail=f"Digital Twin failed: {str(exc)}",
         ) from exc
 
+
+# ============================================================
+# STUDENT JOURNEY TIMELINE
+# ============================================================
 
 @router.post("/journey-timeline")
 async def journey_timeline(
@@ -47,6 +55,10 @@ async def journey_timeline(
         ) from exc
 
 
+# ============================================================
+# RISK EXPLANATION
+# ============================================================
+
 @router.post("/risk-explanation")
 async def risk_explanation(
     payload: StudentIntelligenceRequest,
@@ -62,6 +74,10 @@ async def risk_explanation(
             detail=f"Risk Explanation failed: {str(exc)}",
         ) from exc
 
+
+# ============================================================
+# EARLY WARNING HORIZON
+# ============================================================
 
 @router.post("/early-warning")
 async def early_warning(
