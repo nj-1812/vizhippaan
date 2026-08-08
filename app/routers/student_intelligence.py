@@ -1,7 +1,4 @@
-from fastapi import (
-    APIRouter,
-    HTTPException,
-)
+from fastapi import APIRouter, HTTPException
 
 from app.schemas.student_intelligence import (
     StudentIntelligenceRequest,
@@ -23,17 +20,14 @@ async def digital_twin(
     payload: StudentIntelligenceRequest,
 ):
     try:
-        return (
-            student_intelligence_service
-            .digital_twin(
-                payload
-            )
+        return student_intelligence_service.digital_twin(
+            payload
         )
 
     except Exception as exc:
         raise HTTPException(
             status_code=500,
-            detail=str(exc),
+            detail=f"Digital Twin failed: {str(exc)}",
         ) from exc
 
 
@@ -42,17 +36,14 @@ async def journey_timeline(
     payload: StudentIntelligenceRequest,
 ):
     try:
-        return (
-            student_intelligence_service
-            .journey_timeline(
-                payload
-            )
+        return student_intelligence_service.journey_timeline(
+            payload
         )
 
     except Exception as exc:
         raise HTTPException(
             status_code=500,
-            detail=str(exc),
+            detail=f"Journey Timeline failed: {str(exc)}",
         ) from exc
 
 
@@ -61,17 +52,14 @@ async def risk_explanation(
     payload: StudentIntelligenceRequest,
 ):
     try:
-        return (
-            student_intelligence_service
-            .risk_explanation(
-                payload
-            )
+        return student_intelligence_service.risk_explanation(
+            payload
         )
 
     except Exception as exc:
         raise HTTPException(
             status_code=500,
-            detail=str(exc),
+            detail=f"Risk Explanation failed: {str(exc)}",
         ) from exc
 
 
@@ -80,15 +68,12 @@ async def early_warning(
     payload: StudentIntelligenceRequest,
 ):
     try:
-        return (
-            student_intelligence_service
-            .early_warning(
-                payload
-            )
+        return student_intelligence_service.early_warning(
+            payload
         )
 
     except Exception as exc:
         raise HTTPException(
             status_code=500,
-            detail=str(exc),
+            detail=f"Early Warning failed: {str(exc)}",
         ) from exc
