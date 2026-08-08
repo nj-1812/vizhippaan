@@ -34,6 +34,9 @@ app = FastAPI(
         "Backend API for VIZHIPPAAN – "
         "Child Education Risk Intelligence Platform"
     ),
+    docs_url="/docs",
+    redoc_url="/redoc",
+    openapi_url="/openapi.json",
 )
 
 
@@ -56,7 +59,28 @@ app.add_middleware(
 
 @app.get("/", include_in_schema=False)
 def root():
+    """
+    Redirect the root URL to Swagger documentation.
+    """
     return RedirectResponse(url="/docs")
+
+
+# ============================================================
+# SIMPLE HEALTH CHECK
+# ============================================================
+
+@app.get("/ping", tags=["System"])
+def ping():
+    """
+    Lightweight API health check.
+    """
+    return {
+        "status": "ok",
+        "project": "VIZHIPPAAN",
+        "application": settings.APP_NAME,
+        "version": settings.APP_VERSION,
+        "api_prefix": settings.API_PREFIX,
+    }
 
 
 # ============================================================
